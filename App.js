@@ -1,11 +1,45 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import DetailProduct from './components/DetailProduct'
+import ProductList from './components/ProductList';
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator>
+        <Stack.Screen 
+        name="Product" 
+        component={ProductList}
+        options={{
+          title:"Product",
+          headerStyle:{
+            backgroundColor:"red"
+          },
+          headerTintColor: '#fff',
+        }} 
+        />
+        <Stack.Screen 
+        name="DetailProduct" 
+        component={DetailProduct}
+       
+          options={({ route }) => ({ 
+            title: route.params.product.name ,
+            headerStyle:{
+              backgroundColor:"red"
+            },
+            headerTintColor: '#fff',
+          })}
+        />
+      </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
